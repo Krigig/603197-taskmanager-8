@@ -1,5 +1,5 @@
-export default (colorBar = `black`, text = ``, isDeadline = false, isRepeat = false, hasPhoto = false) => `
-    <article class="card card--${colorBar} ${isDeadline ? `card--deadline` : ``} ${isRepeat ? `card--repeat` : ``}">
+export default (task) => `
+    <article class="card card--${task.color} ${task.isDeadline ? `card--deadline` : ``} ${task.isRepeat ? `card--repeat` : ``}">
       <form class="card__form" method="get">
         <div class="card__inner">
           <div class="card__control">
@@ -22,7 +22,7 @@ export default (colorBar = `black`, text = ``, isDeadline = false, isRepeat = fa
 
           <div class="card__textarea-wrap">
             <label>
-              <textarea class="card__text" placeholder="Start typing your text here..." name="text">${text}</textarea>
+              <textarea class="card__text" placeholder="Start typing your text here..." name="text">${task.title}</textarea>
             </label>
           </div>
 
@@ -30,10 +30,10 @@ export default (colorBar = `black`, text = ``, isDeadline = false, isRepeat = fa
             <div class="card__details">
               <div class="card__dates">
                 <button class="card__date-deadline-toggle" type="button">
-                  date: <span class="card__date-status">${isDeadline ? `yes` : `no`}</span>
+                  date: <span class="card__date-status">${task.isDeadline ? `yes` : `no`}</span>
                 </button>
 
-                <fieldset class="card__date-deadline" ${isDeadline ? `` : `disabled`}>
+                <fieldset class="card__date-deadline" ${task.isDeadline ? `` : `disabled`}>
                   <label class="card__input-deadline-wrap">
                     <input class="card__date" type="text" placeholder="23 September" name="date"/>
                   </label>
@@ -43,10 +43,10 @@ export default (colorBar = `black`, text = ``, isDeadline = false, isRepeat = fa
                 </fieldset>
 
                 <button class="card__repeat-toggle" type="button">
-                  repeat:<span class="card__repeat-status">${isRepeat ? `yes` : `no`}</span>
+                  repeat:<span class="card__repeat-status">${task.isRepeat ? `yes` : `no`}</span>
                 </button>
 
-                <fieldset class="card__repeat-days" ${isRepeat ? `` : `desabled`}>
+                <fieldset class="card__repeat-days" ${task.isRepeat ? `` : `desabled`}>
                   <div class="card__repeat-days-inner">
                     <input class="visually-hidden card__repeat-day-input" type="checkbox" id="repeat-mo-1" name="repeat" value="mo"/>
                     <label class="card__repeat-day" for="repeat-mo-1">mo</label>
@@ -74,7 +74,7 @@ export default (colorBar = `black`, text = ``, isDeadline = false, isRepeat = fa
               </div>
             </div>
 
-            <label class="card__img-wrap ${hasPhoto ? `` : `card__img-wrap--empty`}">
+            <label class="card__img-wrap ${task.picture ? `` : `card__img-wrap--empty`}">
               <input type="file" class="card__img-input visually-hidden" name="img"/>
               <img src="img/add-photo.svg" alt="task picture" class="card__img"/>
             </label>

@@ -1,5 +1,6 @@
 import getFilterElement from './make-filter.js';
 import getCardElement from './make-card.js';
+import {task} from './data.js';
 
 const fiterElements = [`All`, `Overdue`, `Today`, `Favorites`, `Repeating`, `Tags`, `Archive`];
 
@@ -19,15 +20,16 @@ const renderFilterElements = function (array) {
     element.addEventListener(`click`, function () {
       removeCardElements();
       let amountCads = Math.round(Math.random() * 10);
-      renderCardElements(amountCads);
+      renderTasks(tasksContainer, amountCads);
     });
   });
 };
 
-const renderCardElements = function (amount) {
-  for (let i = 0; i < amount; i++) {
-    document.querySelector(`.board__tasks`).insertAdjacentHTML(`beforeend`,getCardElement(`black`, `It is example of repeating task. It marks by wave.`));
-  }
+const tasksContainer = document.querySelector(`.board__tasks`);
+const renderTasks = (dist, amount) => {
+  dist.insertAdjacentHTML(`beforeend`, new Array(amount)
+    .fill(getCardElement(task))
+    .join(``));
 };
 
 const removeCardElements = function () {
@@ -40,5 +42,6 @@ const removeCardElements = function () {
 };
 
 renderFilterElements(fiterElements);
-renderCardElements(7);
+renderTasks(tasksContainer, 7);
+
 
